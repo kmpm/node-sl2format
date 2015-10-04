@@ -1,0 +1,16 @@
+{
+  "name": "sl2",
+  "version": "1.0.0",
+  "description": "Module to read .sl2 files",
+  "main": "index.js",
+  "scripts": {
+    "test": "lab -c"
+  },
+  "keywords": [
+    "sl2",
+    "plotter",
+    "parser"
+  ],
+  "author": "Peter Magnusson <peter@birchroad.net>",
+  "license": "MIT"
+}

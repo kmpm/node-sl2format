@@ -1,0 +1,6 @@
+#node/npm stuff
+node_modules\
+*.log
+
+#sublime text
+*.sublime-*
