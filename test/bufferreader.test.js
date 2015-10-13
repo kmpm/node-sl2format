@@ -13,7 +13,7 @@ lab.experiment('reader', function () {
 	lab.test('jox', function (done) {
 		var data;
 		var first = true;
-		var rs = fs.createReadStream(__dirname + '/fixtures/a.sl2', {start: 10, end: 8000});
+		var rs = fs.createReadStream(__dirname + '/fixtures/small.sl2', {start: 10, end: 8000});
 		rs.on('data', function (chunk) {
 			if (first) {
 				first = false;

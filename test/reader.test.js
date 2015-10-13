@@ -19,11 +19,11 @@ lab.experiment('reader', function () {
 			next();
 		}
 
-		var rs = fs.createReadStream(__dirname + '/fixtures/b.sl2')
+		var rs = fs.createReadStream(__dirname + '/fixtures/small.sl2')
 		.pipe(new lib.Reader())
 		.pipe(through2.obj(t))
 		//.pipe(new stream.Transform({transform: t}))
-		.pipe(fs.createWriteStream(__dirname + '/test.json'));
+		.pipe(fs.createWriteStream(__dirname + '/out/small.json'));
 
 		rs.on('end', function () {
 			done();
