@@ -21,10 +21,12 @@ float | FloatLE (32 bits IEEE 754 floating point number)
 ## Structure
 ###Header
 10 byte header, then a series of blocks/frames as described below.
+
 offset| bytes | type  | description
 -----:|------:|-------|-----------------------------------------------------------------
     0 |     2 | short | filetype*
     2 |     8 | ?     | unknown / not verified
+    
     
 **filetype* ** 1 = slg, 2 = sl2
 
