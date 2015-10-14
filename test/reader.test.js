@@ -53,7 +53,7 @@ function readFile(infile, outfile, length, options) {
 
 }
 
-lab.experiment('reader', {timeout: 10000}, function () {
+lab.experiment('reader', function () {
   var SMALL_BLOCKSIZE = 3216;
 
   lab.test('ten first in small.sl2',  function (done) {
@@ -95,9 +95,9 @@ lab.experiment('reader', {timeout: 10000}, function () {
   });
 
   lab.test('ten first in small.sl2 with conversions',  function (done) {
-    var BLOCKCOUNT = 10;
+    var BLOCKCOUNT = 20;
     var infile = path.join(__dirname, 'fixtures', 'small.sl2');
-    var outfile = path.join(__dirname, 'out', 'small-metric-10first.json');
+    var outfile = path.join(__dirname, 'out', 'small-metric-20first.json');
 
     readFile(infile, outfile, 10 + BLOCKCOUNT * SMALL_BLOCKSIZE, {
       feetToMeter: true,
@@ -105,7 +105,8 @@ lab.experiment('reader', {timeout: 10000}, function () {
       speedInUnit: 'ms',
       convertProjection: true
     })
-    .then(function (blocks) {
+    .then(function (result) {
+      var blocks = result.blocks;
       expect(blocks.length).to.equal(BLOCKCOUNT);
       var b = blocks[0];
       validBlock(b);
