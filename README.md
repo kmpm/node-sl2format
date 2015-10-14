@@ -28,7 +28,7 @@ offset| bytes | type  | description
     2 |     8 | ?     | unknown / not verified
     
     
-**filetype* ** 1 = slg, 2 = sl2
+__filetype*__ 1 = slg, 2 = sl2
 
 
 ### Block/Frame
@@ -60,9 +60,9 @@ offset| bytes | type  | description
   140 |     4 | int   | time1, Unknown resolution, unknown epoch.
   144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
 
-**blockSize* ** The last block in the file doesn't follow this pattern and I don't know why.
+__blockSize*__ The last block in the file doesn't follow this pattern and I don't know why.
 
-**channel* **
+__channel*__
 * 0 = Primary (Tranditional Sonar)
 * 1 = Secondary (Traditional Sonar)
 * 2 = DSI (DownScan Imaging)
@@ -72,7 +72,7 @@ offset| bytes | type  | description
 * Any other value is treated as invalid
 
 
-**frequency* ** 
+__frequency*__
 * 0 = 200 KHz
 * 1 = 50 KHz
 * 2 = 83 KHz
