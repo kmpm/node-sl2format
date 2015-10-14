@@ -77,27 +77,36 @@ lab.experiment('reader', function () {
         'time1' :3536977920,
         'waterDepth': 6.622000217437744,
         'temperature': 19.350006103515625,
+        'frequency': 0,
         'keelDepth': 0,
-        'altitude': 118.89765930175781,
-        'heading': 0,
         'upperLimit': 0,
         'lowerLimit': 19.600000381469727,
-        'frequency': 0,
-        'speedGps': 2.585312843322754,
+        'altitude': 118.89765930175781,
+        'heading': 0,
+        'courseOverGround': 3.7873644828796387,
+        'waterSpeed': 0,
+        'gpsSpeed': 2.585312843322754,
         'longitude': 1383678,
         'latitude': 8147302,
-        'speedWater': 0,
-        'courseOverGround': 3.7873644828796387
+        'flags': {
+          trackValid: true,
+          waterSpeedValid: false,
+          positionValid: true,
+          waterTempValid: true,
+          gpsSpeedValid: true,
+          altitudeValid: true,
+          headingValid: false
+        }
       }, {prototype: false});
       done();
     })
     .catch(done);
   });
 
-  lab.test('ten first in small.sl2 with conversions',  function (done) {
-    var BLOCKCOUNT = 20;
+  lab.test('forty first in small.sl2 with conversions',  function (done) {
+    var BLOCKCOUNT = 40;
     var infile = path.join(__dirname, 'fixtures', 'small.sl2');
-    var outfile = path.join(__dirname, 'out', 'small-metric-20first.json');
+    var outfile = path.join(__dirname, 'out', 'small-metric-40first.json');
 
     readFile(infile, outfile, 10 + BLOCKCOUNT * SMALL_BLOCKSIZE, {
       feetToMeter: true,
@@ -119,18 +128,42 @@ lab.experiment('reader', function () {
         'time1' :3536977920,
         'waterDepth': 2.0183856662750244,
         'temperature': 19.350006103515625,
+        'frequency': 0,
         'keelDepth': 0,
-        'altitude': 36.24000655517578,
-        'heading': 0,
         'upperLimit': 0,
         'lowerLimit': 5.974080116271973,
-        'frequency': 0,
-        'speedGps': 1.3299998282492334,
+        'altitude': 36.24000655517578,
+        'heading': 0,
+        'courseOverGround': 217.00000034675082,
+        'waterSpeed': 0,
+        'gpsSpeed': 1.3299998282492334,
         'longitude': 12.471605890323259,
         'latitude': 58.97372610987078,
-        'speedWater': 0,
-        'courseOverGround': 217.00000034675082
+        'flags': {
+          trackValid: true,
+          waterSpeedValid: false,
+          positionValid: true,
+          waterTempValid: true,
+          gpsSpeedValid: true,
+          altitudeValid: true,
+          headingValid: false
+        }
       }, {prototype: false});
+      done();
+    })
+    .catch(done);
+  });
+
+  lab.test('small.sl2',  function (done) {
+    var BLOCKCOUNT = 4038;
+    var infile = path.join(__dirname, 'fixtures', 'small.sl2');
+    var outfile = path.join(__dirname, 'out', 'small.json');
+
+    readFile(infile, outfile)
+    .then(function (result) {
+      var blocks = result.blocks;
+      expect(result.header.formatVersion).to.equal('sl2');
+      expect(blocks.length).to.equal(BLOCKCOUNT);
       done();
     })
     .catch(done);

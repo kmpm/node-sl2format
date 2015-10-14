@@ -11,6 +11,7 @@ byte  | UInt8
 short | UInt16LE
 int   | UInt32LE
 float | FloatLE (32 bits IEEE 754 floating point number)
+flags | UInt32BE
 
 
 ## Structure
@@ -21,8 +22,8 @@ offset| bytes | type  | description
 -----:|------:|-------|-----------------------------------------------------------------
     0 |     2 | short | filetype*
     2 |     8 | ?     | unknown / not verified
-    
-    
+
+
 __filetype*__ 1 = slg, 2 = sl2
 
 
@@ -51,6 +52,7 @@ offset| bytes | type  | description
   118 |     4 | float | courseOverGround in radians,
   122 |     4 | float | altitude in feet
   126 |     4 | float | heading, in radians
+  130 |     2 | flags | flags* bit coded.
   130 |    11 | ?     | unkown / not verified
   140 |     4 | int   | time1, Unknown resolution, unknown epoch.
   144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
@@ -79,3 +81,25 @@ __frequency*__
 * 9 = 40 - 60 KHz
 * 10 = 25 - 45 KHz
 * Any other value is treaded like 200 KHz
+
+__flags*__
+offset from LSB (rightmost bit)
+
+offset | meaning
+------:|--------
+    15 | trackValid
+    14 | waterSpeedValid
+    13 | ?
+    12 | positionValid
+    11 | ?
+    10 | waterTempValid
+     9 | gpsSpeedValid
+     8 | ?
+     7 | ?
+     6 | ?
+     5 | ?
+     4 | ?
+     3 | ?
+     2 | ?
+     1 | altitudeValid
+     0 | headingValid
