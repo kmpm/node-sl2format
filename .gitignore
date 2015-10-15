@@ -1,3 +1,7 @@
+#please keep project specific stuff in the top
+private/
+
+
 #node/npm stuff
 node_modules/
 *.log
