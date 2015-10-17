@@ -53,6 +53,7 @@ function readFile(infile, outfile, length, options) {
 
 }
 
+
 lab.experiment('reader', function () {
   var SMALL_BLOCKSIZE = 3216;
 
@@ -102,6 +103,7 @@ lab.experiment('reader', function () {
     })
     .catch(done);
   });
+
 
   lab.test('forty first in small.sl2 with conversions',  function (done) {
     var BLOCKCOUNT = 40;
@@ -154,6 +156,7 @@ lab.experiment('reader', function () {
     .catch(done);
   });
 
+
   lab.test('small.sl2',  function (done) {
     var BLOCKCOUNT = 4038;
     var infile = path.join(__dirname, 'fixtures', 'small.sl2');
@@ -167,5 +170,23 @@ lab.experiment('reader', function () {
       done();
     })
     .catch(done);
+  });
+
+
+
+  lab.experiment('private', function () {
+    var files = fs.readdirSync(path.join(__dirname, '..', 'private')).filter(function (f) { return /\.sl2$/.test(f); });
+    files.forEach(function (file) {
+      lab.test(file, {timeout: 30000}, function (done) {
+        var infile = path.join('private', file);
+        var b = path.basename(file);
+        readFile(infile, path.join(__dirname, 'out', b + '.json'))
+        .then(function (result) {
+          expect(result.length).to.be.above(10); //some arbitary number
+          done();
+        })
+        .catch(done);
+      });
+    });
   });
 });
