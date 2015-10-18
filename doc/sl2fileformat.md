@@ -34,11 +34,11 @@ offset| bytes | type  | description
    26 |     2 | short | blockSize*, size of current block in bytes
    28 |     2 | short | lastBlockSize, size of previous block (frameIndex -1) in bytes.
    30 |     2 | short | channel*, gets translated to channelName
-   32 |     2 | short | packetSize, seems to always be same as blockSize
-   34 |     2 | int   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
-   38 |     2 | short | upperLimit
-   40 |     2 | short | lowerLimit
-   42 |     9 | ?     | unknown / not verified
+   32 |     2 | short | packetSize, blockSize - header size...
+   34 |     4 | int   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
+   38 |     4 | float | upperLimit
+   42 |     4 | float | lowerLimit
+   46 |     6 | ?     | unknown / not verified
    51 |     1 | byte  | frequency*
    52 |    10 | ?     | unknown / not verified
    62 |     4 | float | waterDepth in feet
@@ -53,7 +53,7 @@ offset| bytes | type  | description
   122 |     4 | float | altitude in feet
   126 |     4 | float | heading, in radians
   130 |     2 | flags | flags* bit coded.
-  130 |    11 | ?     | unkown / not verified
+  132 |     8 | ?     | unkown / not verified
   140 |     4 | int   | time1, Unknown resolution, unknown epoch.
   144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
 

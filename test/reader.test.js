@@ -173,20 +173,29 @@ lab.experiment('reader', function () {
   });
 
 
-
   lab.experiment('private', function () {
-    var files = fs.readdirSync(path.join(__dirname, '..', 'private')).filter(function (f) { return /\.sl2$/.test(f); });
-    files.forEach(function (file) {
-      lab.test(file, {timeout: 30000}, function (done) {
-        var infile = path.join('private', file);
-        var b = path.basename(file);
-        readFile(infile, path.join(__dirname, 'out', b + '.json'))
-        .then(function (result) {
-          expect(result.length).to.be.above(10); //some arbitary number
-          done();
-        })
-        .catch(done);
+    var privateFolder = path.join(__dirname, '..', 'private');
+    var stats = fs.statSync(privateFolder);
+    if (stats.isDirectory()) {
+      parseInFolder(privateFolder);
+    }
+
+    function parseInFolder(inFolder) {
+      var files = fs.readdirSync(inFolder).filter(function (f) { return /\.sl2$/.test(f); });
+      files.forEach(function (file) {
+        lab.test(file, {timeout: 30000}, function (done) {
+          var infile = path.join(inFolder, file);
+          var b = path.basename(file);
+          readFile(infile, path.join(__dirname, 'out', b + '.json'))
+          .then(function (result) {
+            expect(result).to.include('header', 'blocks');
+            expect(result.length).to.be.above(10); //some arbitary number
+            done();
+          })
+          .catch(done);
+        });
       });
-    });
+    }
+
   });
 });
