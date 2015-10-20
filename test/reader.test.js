@@ -175,9 +175,17 @@ lab.experiment('reader', function () {
 
   lab.experiment('private', function () {
     var privateFolder = path.join(__dirname, '..', 'private');
-    var stats = fs.statSync(privateFolder);
-    if (stats.isDirectory()) {
-      parseInFolder(privateFolder);
+
+    //skip if 'private' folder is missing
+    try {
+      if (fs.statSync(privateFolder).isDirectory()) {
+        parseInFolder(privateFolder);
+      }
+    }
+    catch(ex) {
+      if (!(ex.code && ex.code === 'ENOENT')) {
+        throw ex;
+      }
     }
 
     function parseInFolder(inFolder) {
