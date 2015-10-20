@@ -20,14 +20,16 @@ flags | UInt32BE
 
 offset| bytes | type  | description
 -----:|------:|-------|-----------------------------------------------------------------
-    0 |     2 | short | filetype*
-    2 |     8 | ?     | unknown / not verified
+    0 |     2 | short | format*
+    2 |     2 | short | version*
+    4 |     6 | ?     | unknown / not verified
 
 
-__filetype*__ 1 = slg, 2 = sl2
+__format*__ 1 = slg, 2 = sl2
+__version*__ 1 = ex. Elite 4 CHIRP
 
 
-### Block/Frame
+### sl2 Block/Frame
 offset| bytes | type  | description
 -----:|------:|-------|-----------------------------------------------------------------
     0 |    26 | ?     | unknown / not verified
@@ -57,7 +59,7 @@ offset| bytes | type  | description
   140 |     4 | int   | time1, Unknown resolution, unknown epoch.
   144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
 
-__blockSize*__ The last block in the file doesn't follow this pattern and I don't know why.
+__blockSize*__ The last block in the file doesn't always follow this pattern and I don't know why.
 
 __channel*__
 * 0 = Primary (Tranditional Sonar)

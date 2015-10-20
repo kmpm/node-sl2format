@@ -13,6 +13,8 @@ var CHANNELS = ['Primary', 'Secondary', 'DSI', 'Left', 'Right', 'Composite'];
 const SHORT_MAX = 65535;
 const INT_MAX = 18446744073709551615;
 
+var SMALL_BLOCKSIZE = 3216;
+var BIGGER_BLOCKSIZE = 2064;
 
 function validBlock(chunk) {
   expect(chunk, 'missing fields').to.include(FIELDS);
@@ -47,15 +49,17 @@ function readFile(infile, outfile, length, options) {
     .pipe(ws);
 
     ws.on('finish', function () {
-      resolve({blocks: blocks, header: reader.header});
+      resolve({header: reader.header, options: reader.options, blocks: blocks});
     });
   });
-
 }
 
+function dumpResult(result, filename) {
+  fs.writeFileSync(filename, JSON.stringify(result, null, '  '));
+}
 
 lab.experiment('reader', function () {
-  var SMALL_BLOCKSIZE = 3216;
+
 
   lab.test('ten first in small.sl2',  function (done) {
     var BLOCKCOUNT = 10;
@@ -65,7 +69,7 @@ lab.experiment('reader', function () {
     readFile(infile, outfile, 10 + BLOCKCOUNT * SMALL_BLOCKSIZE)
     .then(function (result) {
       var blocks = result.blocks;
-      expect(result.header.formatVersion).to.equal('sl2');
+      expect(result.header.format).to.equal('sl2');
       expect(blocks.length).to.equal(BLOCKCOUNT);
       var b = blocks[0];
       validBlock(b);
@@ -165,7 +169,43 @@ lab.experiment('reader', function () {
     readFile(infile, outfile)
     .then(function (result) {
       var blocks = result.blocks;
-      expect(result.header.formatVersion).to.equal('sl2');
+      expect(result.header.format).to.equal('sl2');
+      expect(blocks.length).to.equal(BLOCKCOUNT);
+      done();
+    })
+    .catch(done);
+  });
+
+  lab.test('bigger.sl2',  function (done) {
+    var BLOCKCOUNT = 16885;
+    var infile = path.join(__dirname, 'fixtures', 'bigger.sl2');
+    var outfile = path.join(__dirname, 'out', 'bigger.json');
+
+    readFile(infile, outfile)
+    .then(function (result) {
+      var blocks = result.blocks;
+      expect(result.header.format).to.equal('sl2');
+      expect(blocks.length).to.equal(BLOCKCOUNT);
+      done();
+    })
+    .catch(done);
+  });
+
+  lab.test('forty first of bigger.sl2', function (done) {
+    var BLOCKCOUNT = 40;;
+    var infile = path.join(__dirname, 'fixtures', 'bigger.sl2');
+    var outfile = path.join(__dirname, 'out', 'bigger-40first.json');
+
+    readFile(infile, outfile,  10 + BLOCKCOUNT * BIGGER_BLOCKSIZE, {
+      feetToMeter: true,
+      radToDeg: true,
+      convertProjection: true,
+      rawBlockHeader: true
+    })
+    .then(function (result) {
+      dumpResult(result, path.join(__dirname, 'out', 'bigger-result-40first.json'));
+      var blocks = result.blocks;
+      expect(result.header.format).to.equal('sl2');
       expect(blocks.length).to.equal(BLOCKCOUNT);
       done();
     })
