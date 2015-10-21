@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-
+/*eslint no-console: 0 */
 var fs = require('fs');
 
 var sl2 = require('..');
@@ -33,10 +33,10 @@ function doFile(fil) {
 
   reader.on('data', function (block) {
     console.log(JSON.stringify(block));
-    reader.pause();
-    setTimeout(function () {
-      reader.resume();
-    }, 1000);
+    // reader.pause();
+    // setTimeout(function () {
+    //   reader.resume();
+    // }, 1000);
   });
 
 

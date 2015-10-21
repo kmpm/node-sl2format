@@ -192,7 +192,7 @@ lab.experiment('reader', function () {
   });
 
   lab.test('forty first of bigger.sl2', function (done) {
-    var BLOCKCOUNT = 40;;
+    var BLOCKCOUNT = 40;
     var infile = path.join(__dirname, 'fixtures', 'bigger.sl2');
     var outfile = path.join(__dirname, 'out', 'bigger-40first.json');
 
@@ -213,6 +213,22 @@ lab.experiment('reader', function () {
   });
 
 
+  lab.test('version-1.sl2',  function (done) {
+    var BLOCKCOUNT = 6;
+    var infile = path.join(__dirname, 'fixtures', 'version-1.sl2');
+    var outfile = path.join(__dirname, 'out', 'version-1.json');
+
+    readFile(infile, outfile)
+    .then(function (result) {
+      var blocks = result.blocks;
+      expect(result.header.format).to.equal('sl2');
+      expect(blocks.length).to.equal(BLOCKCOUNT);
+      done();
+    })
+    .catch(done);
+  });
+
+
   lab.experiment('private', function () {
     var privateFolder = path.join(__dirname, '..', 'private');
 
@@ -222,7 +238,7 @@ lab.experiment('reader', function () {
         parseInFolder(privateFolder);
       }
     }
-    catch(ex) {
+    catch (ex) {
       if (!(ex.code && ex.code === 'ENOENT')) {
         throw ex;
       }
@@ -231,13 +247,13 @@ lab.experiment('reader', function () {
     function parseInFolder(inFolder) {
       var files = fs.readdirSync(inFolder).filter(function (f) { return /\.sl2$/.test(f); });
       files.forEach(function (file) {
-        lab.test(file, {timeout: 30000}, function (done) {
+        lab.test(file, {timeout: 60000}, function (done) {
           var infile = path.join(inFolder, file);
           var b = path.basename(file);
           readFile(infile, path.join(__dirname, 'out', b + '.json'))
           .then(function (result) {
             expect(result).to.include('header', 'blocks');
-            expect(result.length).to.be.above(10); //some arbitary number
+            expect(result.blocks.length).to.be.above(10); //some arbitary number
             done();
           })
           .catch(done);
