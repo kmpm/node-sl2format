@@ -3,6 +3,8 @@ SL2 File format
 Much kudos to openstreetmap.org project and their SL2 documentation page
 http://wiki.openstreetmap.org/wiki/SL2
 
+Some hints and info about slg can be found at
+http://www.geotech1.com/forums/showthread.php?11159-Lowrance-MCC-saved-data-structure
 
 ## Datatypes
 type  | definition
@@ -26,7 +28,8 @@ offset| bytes | type  | description
 
 
 __format*__ 1 = slg, 2 = sl2
-__version*__ 1 = ex. Elite 4 CHIRP
+__version*__
+0= ex HDS 7, 1= ex. Elite 4 CHIRP
 
 
 ### sl2 Block/Frame
@@ -36,7 +39,7 @@ offset| bytes | type  | description
    26 |     2 | short | blockSize*, size of current block in bytes
    28 |     2 | short | lastBlockSize, size of previous block (frameIndex -1) in bytes.
    30 |     2 | short | channel*, gets translated to channelName
-   32 |     2 | short | packetSize, blockSize - header size...
+   32 |     2 | short | packetSize. Size of soundeing/bounce data.
    34 |     4 | int   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
    38 |     4 | float | upperLimit
    42 |     4 | float | lowerLimit
