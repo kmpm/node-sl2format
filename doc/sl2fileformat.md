@@ -43,7 +43,7 @@ offset| bytes | type  | description
    34 |     4 | int   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
    38 |     4 | float | upperLimit
    42 |     4 | float | lowerLimit
-   46 |     6 | ?     | unknown / not verified
+   46 |     5 | ?     | unknown / not verified
    51 |     1 | byte  | frequency*
    52 |    10 | ?     | unknown / not verified
    62 |     4 | float | waterDepth in feet
