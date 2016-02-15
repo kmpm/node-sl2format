@@ -3,6 +3,7 @@ var expect = Code.expect;
 var Lab = require('lab');
 var lab = exports.lab = Lab.script();
 
+var Promise = require('bluebird');
 var lib = require('../');
 var fs = require('fs');
 var path = require('path');
@@ -10,8 +11,8 @@ var through2 = require('through2');
 
 var FIELDS = ['frameIndex', 'blockSize', 'packetSize', 'lastBlockSize', 'channel', 'time1'];
 var CHANNELS = ['Primary', 'Secondary', 'DSI', 'Left', 'Right', 'Composite'];
-const SHORT_MAX = 65535;
-const INT_MAX = 18446744073709551615;
+var SHORT_MAX = 65535;
+var INT_MAX = 18446744073709551615;
 
 var SMALL_BLOCKSIZE = 3216;
 var BIGGER_BLOCKSIZE = 2064;
@@ -176,7 +177,8 @@ lab.experiment('reader', function () {
     .catch(done);
   });
 
-  lab.test('bigger.sl2',  function (done) {
+  lab.test('bigger.sl2', {timeout: 5000}, function (done) {
+    //this.timeout = 5000;
     var BLOCKCOUNT = 16885;
     var infile = path.join(__dirname, 'fixtures', 'bigger.sl2');
     var outfile = path.join(__dirname, 'out', 'bigger.json');
@@ -214,7 +216,7 @@ lab.experiment('reader', function () {
 
 
   lab.test('version-1.sl2',  function (done) {
-    var BLOCKCOUNT = 6;
+    var BLOCKCOUNT = 14;
     var infile = path.join(__dirname, 'fixtures', 'version-1.sl2');
     var outfile = path.join(__dirname, 'out', 'version-1.json');
 
