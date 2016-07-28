@@ -71,10 +71,11 @@ lab.experiment('reader', function () {
     .then(function (result) {
       var blocks = result.blocks;
       expect(result.header.format).to.equal('sl2');
+      expect(blocks).to.be.an.array();
       expect(blocks.length).to.equal(BLOCKCOUNT);
       var b = blocks[0];
       validBlock(b);
-      expect(b).to.deep.equal({
+      expect(b).to.equal({
         'frameIndex': 0,
         'blockSize': 3216,
         'packetSize': 3072,
@@ -126,7 +127,7 @@ lab.experiment('reader', function () {
       expect(blocks.length).to.equal(BLOCKCOUNT);
       var b = blocks[0];
       validBlock(b);
-      expect(b).to.deep.equal({
+      expect(b).to.equal({
         'frameIndex': 0,
         'blockSize': 3216,
         'packetSize': 3072,
