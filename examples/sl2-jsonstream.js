@@ -2,10 +2,14 @@
 /*eslint no-console: 0 */
 var fs = require('fs');
 
-var sl2 = require('..');
+var sl2 = require('..'); //require('sl2format');
 
 
 function main() {
+  if (process.argv.length < 3) {
+    console.error('Must provide at least 1 log file as argument');
+    process.exit(1);
+  }
   for (var i = 2; i < process.argv.length; i++) {
     var fil = process.argv[i];
     var stats = fs.statSync(fil);
