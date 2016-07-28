@@ -39,7 +39,6 @@ function readFile(infile, outfile, length, options) {
     ws.on('error', reject);
     reader.on('error', reject);
 
-
     fs.createReadStream(infile, fsoptions)
     .pipe(reader)
     .pipe(through2.obj(function (obj, enc, next) {
@@ -231,6 +230,21 @@ lab.experiment('reader', function () {
     .catch(done);
   });
 
+  lab.test('filter on flags', {timeout: 30000}, function (done) {
+    var BLOCKCOUNT = 1819;
+    var infile = path.join(__dirname, 'fixtures', 'bigger.sl2');
+    var outfile = path.join(__dirname, 'out', 'bigger-filtered.json');
+
+    readFile(infile, outfile, 0, {flags:{positionValid: true}})
+    .then(function (result) {
+      var blocks = result.blocks;
+      expect(result.header.format).to.equal('sl2');
+      expect(blocks.length).to.equal(BLOCKCOUNT);
+      done();
+    })
+    .catch(done);
+
+  });
 
   lab.experiment('private', function () {
     var privateFolder = path.join(__dirname, '..', 'private');
