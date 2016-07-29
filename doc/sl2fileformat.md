@@ -13,7 +13,7 @@ byte  | UInt8
 short | UInt16LE
 int   | UInt32LE
 float | FloatLE (32 bits IEEE 754 floating point number)
-flags | UInt32BE
+flags | UInt16LE
 
 
 ## Structure
@@ -88,23 +88,36 @@ __frequency*__
 * Any other value is treaded like 200 KHz
 
 __flags*__
-offset from LSB (rightmost bit)
+offset from rightmost bit, value if read as UInt16LE
 
-offset | meaning
-------:|--------
-    15 | trackValid
-    14 | waterSpeedValid
-    13 | ?
-    12 | positionValid
-    11 | ?
-    10 | waterTempValid
-     9 | gpsSpeedValid
-     8 | ?
-     7 | ?
-     6 | ?
-     5 | ?
-     4 | ?
-     3 | ?
-     2 | ?
-     1 | altitudeValid
-     0 | headingValid
+bit offset | value |meaning
+----------:|--------:|-------
+        15 |  0x0080 | trackValid
+        14 |  0x0040 | waterSpeedValid
+        13 |  0x0020 | ?
+        12 |  0x0010 | positionValid
+        11 |  0x0008 | ?
+        10 |  0x0004 | waterTempValid
+         9 |  0x0002 | gpsSpeedValid
+         8 |  0x0001 | ?
+         7 |  0x8000 | ?
+         6 |  0x4000 | ?
+         5 |  0x2000 | ?
+         4 |  0x1000 | ?
+         3 |  0x0800 | ?
+         2 |  0x0400 | ?
+         1 |  0x0200 | altitudeValid
+         0 |  0x0100 | headingValid
+
+0xBE02 in the file (10111110 00000010) should translate to
+```javascript
+{
+    trackValid: true,
+    waterSpeedValid: false,
+    positionValid: true,
+    waterTempValid: true,
+    gpsSpeedValid: true,
+    altitudeValid: true,
+    headingValid: false
+}
+```
