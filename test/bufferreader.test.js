@@ -23,4 +23,11 @@ lab.experiment('BufferReader', function () {
     expect(br).to.be.an.instanceof(BufferReader);
     done();
   });
+
+  lab.test('bad float', function (done) {
+    var br = new BufferReader(new Buffer('FFFFFFFF', 'hex'));
+    var v = br.float();
+    expect(isNaN(v)).to.be.true();
+    done();
+  });
 });
