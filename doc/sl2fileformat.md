@@ -30,8 +30,7 @@ offset| bytes | type  | description
 
 
 __format*__ 1 = slg, 2 = sl2, 3 = sl3
-__version*__
-0= ex HDS 7, 1= ex. Elite 4 CHIRP
+__version*__ 0= ex HDS 7, 1= ex. Elite 4 CHIP
 __blocksize*__ 1970=Downscan #b207, 3200=Sidescan #800c
 
 ### sl2 Block/Frame
