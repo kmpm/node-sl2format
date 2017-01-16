@@ -22,12 +22,13 @@ function main() {
 
 
 function doFile(fil) {
-  var options = {};
+  var options = {
+    feetToMeter: true, //default false
+    convertProjection: true, //default false
+    radToDeg: true //default false
+  };
   var fsoptions = {};
-  // if (length > 0) {
-  //   fsoptions.start = 0;
-  //   fsoptions.end = length;
-  // }
+
   var reader = new sl2.Reader(options);
 
   reader.on('header', function (header) {
@@ -37,20 +38,11 @@ function doFile(fil) {
 
   reader.on('data', function (block) {
     console.log(JSON.stringify(block));
-    // reader.pause();
-    // setTimeout(function () {
-    //   reader.resume();
-    // }, 1000);
   });
 
 
   fs.createReadStream(fil, fsoptions)
   .pipe(reader);
-  // .pipe(through2.obj(function (obj, enc, next) {
-  //   blocks.push(obj);
-  //   this.push(JSON.stringify(obj) + '\n');
-  //   next();
-  // }))
 }
 
 main();
