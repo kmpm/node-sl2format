@@ -76,14 +76,21 @@ lab.experiment('reader', function () {
       validBlock(b);
       expect(b).to.equal({
         'frameIndex': 0,
+        'frameOffset': 8,
         'blockSize': 3216,
         'packetSize': 3072,
         'lastBlockSize': 0,
+        'lastDownScanChannelOffset': 0,
+        'lastPrimaryChannelOffset': 8,
+        'lastSecondaryChannelOffset': 0,
+        'lastSidescanLeftChannelOffset': 0,
+        'lastSidescanRightChannelOffset': 0,
+        'lastSidescanCompositeOffset': 0,
         'channel': 'Primary',
-        'time1' :3536977920,
+        'time1': 5,
         'waterDepth': 6.622000217437744,
         'temperature': 19.350006103515625,
-        'frequency': 0,
+        'frequency': 8,
         'keelDepth': 0,
         'upperLimit': 0,
         'lowerLimit': 19.600000381469727,
@@ -128,14 +135,21 @@ lab.experiment('reader', function () {
       validBlock(b);
       expect(b).to.equal({
         'frameIndex': 0,
+        'frameOffset': 8,
         'blockSize': 3216,
         'packetSize': 3072,
         'lastBlockSize': 0,
+        'lastDownScanChannelOffset': 0,
+        'lastPrimaryChannelOffset': 8,
+        'lastSecondaryChannelOffset': 0,
+        'lastSidescanLeftChannelOffset': 0,
+        'lastSidescanRightChannelOffset': 0,
+        'lastSidescanCompositeOffset': 0,
         'channel': 'Primary',
-        'time1' :3536977920,
+        'time1' :5,
         'waterDepth': 2.0183856662750244,
         'temperature': 19.350006103515625,
-        'frequency': 0,
+        'frequency': 8,
         'keelDepth': 0,
         'upperLimit': 0,
         'lowerLimit': 5.974080116271973,
@@ -163,7 +177,7 @@ lab.experiment('reader', function () {
 
 
   lab.test('small.sl2',  function (done) {
-    var BLOCKCOUNT = 4038;
+    var BLOCKCOUNT = 4017;
     var infile = path.join(__dirname, 'fixtures', 'small.sl2');
     var outfile = path.join(__dirname, 'out', 'small.json');
 
@@ -179,7 +193,7 @@ lab.experiment('reader', function () {
 
   lab.test('bigger.sl2', {timeout: 5000}, function (done) {
     //this.timeout = 5000;
-    var BLOCKCOUNT = 16885;
+    var BLOCKCOUNT = 16910;
     var infile = path.join(__dirname, 'fixtures', 'bigger.sl2');
     var outfile = path.join(__dirname, 'out', 'bigger.json');
 
@@ -231,7 +245,7 @@ lab.experiment('reader', function () {
   });
 
   lab.test('filter on flags', {timeout: 30000}, function (done) {
-    var BLOCKCOUNT = 1819;
+    var BLOCKCOUNT = 1290;
     var infile = path.join(__dirname, 'fixtures', 'bigger.sl2');
     var outfile = path.join(__dirname, 'out', 'bigger-filtered.json');
 
