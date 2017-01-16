@@ -230,7 +230,7 @@ lab.experiment('reader', function () {
 
 
   lab.test('version-1.sl2',  function (done) {
-    var BLOCKCOUNT = 14;
+    var BLOCKCOUNT = 7;
     var infile = path.join(__dirname, 'fixtures', 'version-1.sl2');
     var outfile = path.join(__dirname, 'out', 'version-1.json');
 
