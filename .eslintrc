@@ -12,8 +12,8 @@
         "no-unused-vars": [2],
         "quotes": [2,"single"],
         "semi": [2, "always"],
-        
-        
+
+        "no-global-assign": [2],
         "space-before-function-paren": [2,  {"anonymous": "always", "named": "never"}],
         "space-infix-ops": [2],
         "space-unary-ops": [2]
@@ -21,7 +21,5 @@
     "env": {
         "node": true
     },
-    
-   
     "extends": "eslint:recommended"
 }

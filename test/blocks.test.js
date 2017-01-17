@@ -7,6 +7,7 @@ var blocks = require('../lib/blocks');
 var BufferReader = require('../lib/bufferreader');
 
 var blockdata = require('./blockdata');
+var OFS = require('../lib/block_offsets');
 
 lab.experiment('blocks', function () {
   lab.test('reader with no options or flush', function (done) {
@@ -30,7 +31,7 @@ lab.experiment('blocks', function () {
 
   lab.test('invalid channel', function (done) {
     var buf = blockdata.block1();
-    buf.writeUInt16LE(6, 30); //change to channel nr 6
+    buf.writeUInt16LE(6, OFS.channel); //change to channel nr 6
     var br = new BufferReader(buf);
     var block = blocks.reader(br, true);
     //console.log(block);
@@ -38,9 +39,9 @@ lab.experiment('blocks', function () {
     done();
   });
 
-  lab.test('speed in knots', function (done) {
+  lab.test('invalid channel when speed in knots', function (done) {
     var buf = blockdata.block1();
-    buf.writeUInt16LE(6, 30); //change to channel nr 6
+    buf.writeUInt16LE(6, OFS.channel); //change to channel nr 6
     var br = new BufferReader(buf);
     var block = blocks.reader(br, true, {speedInUnit: 'kn'});
     //console.log(block);
