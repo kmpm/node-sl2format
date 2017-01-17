@@ -60,6 +60,22 @@ function dumpResult(result, filename) {
 
 lab.experiment('reader', function () {
 
+  lab.test('create instance without new', function (done) {
+    var x = lib.Reader();
+    expect(x).to.be.instanceof(lib.Reader);
+    done();
+  });
+
+
+  lab.test('create instance without new', function (done) {
+    var x = new lib.Reader();
+    function throws(){
+      x.readBlocks(null);
+    }
+    expect(throws).to.throw(Error, 'bad type of _buf object object');
+    done();
+  });
+
 
   lab.test('ten first in small.sl2',  function (done) {
     var BLOCKCOUNT = 10;
