@@ -22,16 +22,16 @@ flags | UInt16LE
 
 offset| bytes | type  | description
 -----:|------:|-------|-----------------------------------------------------------------
-    0 |     2 | short | format*
-    2 |     2 | short | version*
-    4 |     2 | short | blocksize*
+    0 |     2 | short | format[1]
+    2 |     2 | short | version[2]
+    4 |     2 | short | blocksize[3]
     6 |     2 | short | unknown/always 0
 
 
 
-__format*__ 1 = slg, 2 = sl2, 3 = sl3
-__version*__ 0= ex HDS 7, 1= ex. Elite 4 CHIP
-__blocksize*__ 1970=Downscan #b207, 3200=Sidescan #800c
+__format[1]__ 1 = slg, 2 = sl2, 3 = sl3
+__version[2]__ 0= ex HDS 7, 1= ex. Elite 4 CHIP
+__blocksize[3]__ 1970=Downscan #b207, 3200=Sidescan #800c
 
 ### sl2 Block/Frame
 offset| bytes | type  | description
@@ -43,15 +43,15 @@ offset| bytes | type  | description
    16 |     4 | short | last left sidescan channel frame offset in file
    20 |     4 | short | last right sidescan channel frame offset in file
    24 |     4 | short | last composite sidescan channel frame offset in file
-   28 |     2 | short | blockSize*, size of current block in bytes
+   28 |     2 | short | blockSize[1], size of current block in bytes
    30 |     2 | short | lastBlockSize, size of previous block (frameIndex -1) in bytes.
-   32 |     2 | short | channel*, gets translated to channelName
+   32 |     2 | short | channel[2], gets translated to channelName
    34 |     2 | short | packetSize. Size of soundeing/bounce data.
    36 |     4 | int   | frameIndex. Starts at 0. Used ot match frames/block on different channels.
    40 |     4 | float | upperLimit
    44 |     4 | float | lowerLimit
    48 |     - | ?     | unknown / not verified
-   50 |     1 | byte  | frequency*
+   50 |     1 | byte  | frequency[3]
    51 |     - | ?     | unknown / not verified
    64 |     4 | float | waterDepth in feet
    68 |     4 | float | keelDepth in feet
@@ -64,14 +64,14 @@ offset| bytes | type  | description
   120 |     4 | float | courseOverGround in radians,
   124 |     4 | float | altitude in feet
   128 |     4 | float | heading, in radians
-  132 |     2 | flags | flags* bit coded.
+  132 |     2 | flags | flags[4] bit coded.
   134 |     - | ?     | unkown / not verified
   140 |     4 | int   | time1, Unknown resolution, unknown epoch.
   144 |     ? | ?     | unknown / not verified. Contains sounding/bounce data
 
-__blockSize*__ The last block in the file doesn't always follow this pattern and I don't know why.
+__blockSize[1]__ The last block in the file doesn't always follow this pattern and I don't know why.
 
-__channel*__
+__channel[2]__
 * 0 = Primary (Tranditional Sonar)
 * 1 = Secondary (Traditional Sonar)
 * 2 = DSI (DownScan Imaging)
@@ -81,7 +81,7 @@ __channel*__
 * Any other value is treated as invalid
 
 
-__frequency*__
+__frequency[3]__
 * 0 = 200 KHz
 * 1 = 50 KHz
 * 2 = 83 KHz
@@ -94,7 +94,7 @@ __frequency*__
 * 10 = 25 - 45 KHz
 * Any other value is treaded like 200 KHz
 
-__flags*__
+__flags[4]__
 offset from rightmost bit, value if read as UInt16LE
 
 bit offset | value |meaning
