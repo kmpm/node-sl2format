@@ -97,24 +97,24 @@ __frequency[3]__
 __flags[4]__
 offset from rightmost bit, value if read as UInt16LE
 
-bit offset | value |meaning
-----------:|--------:|-------
-        15 |  0x0080 | trackValid
-        14 |  0x0040 | waterSpeedValid
-        13 |  0x0020 | ?
-        12 |  0x0010 | positionValid
-        11 |  0x0008 | ?
-        10 |  0x0004 | waterTempValid
-         9 |  0x0002 | gpsSpeedValid
-         8 |  0x0001 | ?
-         7 |  0x8000 | ?
-         6 |  0x4000 | ?
-         5 |  0x2000 | ?
-         4 |  0x1000 | ?
-         3 |  0x0800 | ?
-         2 |  0x0400 | ?
-         1 |  0x0200 | altitudeValid
-         0 |  0x0100 | headingValid
+|bit offset | value |meaning
+|     ---: |    ---: | -------
+|       15 |  0x0080 | trackValid
+|       14 |  0x0040 | waterSpeedValid
+|       13 |  0x0020 | ?
+|       12 |  0x0010 | positionValid
+|       11 |  0x0008 | ?
+|       10 |  0x0004 | waterTempValid
+|        9 |  0x0002 | gpsSpeedValid
+|        8 |  0x0001 | ?
+|        7 |  0x8000 | ?
+|        6 |  0x4000 | ?
+|        5 |  0x2000 | ?
+|        4 |  0x1000 | ?
+|        3 |  0x0800 | ?
+|        2 |  0x0400 | ?
+|        1 |  0x0200 | altitudeValid
+|        0 |  0x0100 | headingValid
 
 0xBE02 in the file (10111110 00000010) should translate to
 ```javascript
