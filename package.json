@@ -24,7 +24,7 @@
   "devDependencies": {
     "bluebird": "^3.3.1",
     "code": "^4.0.0",
-    "eslint": "^3.13.1",
+    "eslint": "^6.6.0",
     "lab": "^11.2.2",
     "through2": "^2.0.1"
   },
